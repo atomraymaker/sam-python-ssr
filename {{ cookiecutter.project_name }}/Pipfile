@@ -1,0 +1,35 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+aws-sam-cli = "*"
+black = "*"
+cfn-lint = "*"
+mypy = "*"
+pylint = "*"
+pytest = "*"
+pytest-cov = "*"
+pytest-env = "*"
+pytest-mock = "*"
+pytest-pythonpath = "*"
+watchdog = "*"
+
+[packages]
+aws-lambda-powertools = "*"
+boto3 = "*"
+
+[requires]
+python_version = "3.8"
+
+[pipenv]
+allow_prereleases = true
+
+[scripts]
+test = "pytest tests --cov=app --cov-report term"
+test-html = "pytest tests --cov=app --cov-report html:coverage/html"
+watch = "watchmedo shell-command --patterns='*.py;*.txt' --recursive --command='pipenv run test-html -s'"
+shell = "pipenv run python -i shell.py"
+deploy = "pipenv lock --requirements > app/requirements.txt && sam build && sam deploy"
+deploy-guided = "pipenv lock --requirements > app/requirements.txt && sam build && sam deploy --guided"
