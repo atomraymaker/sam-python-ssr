@@ -1,10 +1,13 @@
 import boto3
 
-import util
+from util.templates import env
 
 SESSION = boto3.session.Session()
+TEMPLATE = env.get_template("template.html")
 
-
-def handle(event, _context):
-    word = event.get("word", "")
-    return util.upcase_string(word, SESSION)
+def handle(_event, _context):
+    return {
+        "statusCode": 200,
+        "body": TEMPLATE.render(name="John Doe"),
+        "headers": {"Content-Type": "text/html"},
+    }

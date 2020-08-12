@@ -23,3 +23,9 @@ Resources:
       Policies:
         - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
         - arn:aws:iam::aws:policy/AWSXrayWriteOnlyAccess
+      Events:
+        Api:
+          Type: HttpApi
+          Properties:
+            Method: GET
+            Path: /

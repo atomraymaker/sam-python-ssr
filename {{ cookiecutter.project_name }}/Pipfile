@@ -15,10 +15,12 @@ pytest-env = "*"
 pytest-mock = "*"
 pytest-pythonpath = "*"
 watchdog = "*"
+localfunk = "*"
 
 [packages]
 aws-lambda-powertools = "*"
 boto3 = "*"
+jinja2 = "*"
 
 [requires]
 python_version = "3.8"
@@ -30,6 +32,7 @@ allow_prereleases = true
 test = "pytest tests --cov=app --cov-report term"
 test-html = "pytest tests --cov=app --cov-report html:coverage/html"
 watch = "watchmedo shell-command --patterns='*.py;*.txt' --recursive --command='pipenv run test-html -s'"
-shell = "pipenv run python -i shell.py"
-deploy = "pipenv lock --requirements > app/requirements.txt && sam build && sam deploy"
+shell = "pipenv run python -i scripts/shell.py"
+compile-templates = "pipenv run python scripts/compile_templates.py" 
+deploy = "pipenv lock --requirements > app/requirements.txt && pipenv run python scripts/compile_templates.py && sam build && sam deploy"
 deploy-guided = "pipenv lock --requirements > app/requirements.txt && sam build && sam deploy --guided"
